@@ -7,6 +7,21 @@ info:
 basePath: /v1.0
 
 paths:
+  /room/:
+    post:
+      operationId: api.room.class_instance.post
+      parameters:
+        - in: body
+          name: room
+          required: true
+          schema:
+            $ref: '#/definitions/Room'
+      responses:
+        '201':
+          description: 'Room Indexed'
+          schema:
+            $ref: '#/definitions/Room'
+
   /items/:
     get:
       responses:
@@ -25,3 +40,83 @@ definitions:
         type: integer
         format: int64
       name: {type: string}
+
+  ImageUrl:
+    type: object
+    required:
+      - url
+
+    properties:
+      url:
+        type: string
+  Area:
+    type: object
+    required:
+      - name
+      - country
+      - city
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+      coordinates:
+        $ref: '#/definitions/Coordinates'
+      country:
+        type: string
+      city:
+        type: string
+
+  Coordinates:
+    type: object
+    required:
+      - lat
+      - lon
+    properties:
+      lat:
+        type: number
+        format: float
+      lon:
+        type: number
+        format: float
+
+  Room:
+    type: object
+    required:
+      - name
+      - description
+      - price
+      - recurrency
+      - url
+      - monthly_price
+      - property_size
+      - provider
+      - coordinates
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+      description:
+        type: string
+      price:
+        type: integer
+      recurrency:
+        type: string
+      provider:
+        type: string
+      url:
+        type: string
+      monthly_price:
+        type: integer
+      property_size:
+        type: string
+      area:
+        $ref: '#/definitions/Area'
+      is_visible:
+        type: boolean
+      coordinates:
+        $ref: '#/definitions/Coordinates'
+      images:
+        type: array
+        $ref: '#/definitions/ImageUrl'
